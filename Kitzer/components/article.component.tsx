@@ -1,14 +1,10 @@
-import React from 'react';
-import {NewsSite} from '../App';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
-
-export interface ArticleProps {
-  newsSite: NewsSite;
-}
+/* global require */
 
 const ArticleContainer = styled.View`
-  height: 150px;
-  border-radius: 8px;
+  
+  border-radius: 9px;
   elevation: 4;
 `;
 
@@ -16,31 +12,51 @@ const NewsSiteIcon = styled.Image`
   width: 18px;
   height: 18px;
 `;
+const NewsSiteIcon2 = styled.Image`
+  margin-left: 15px;
+  margin-bottom: 20px;
+  width: 300px;
+  height: 100px;
+`;
 
 const NewsSiteName = styled.Text`
   color: grey;
   margin-left: 10px;
 `;
 
-const ArticleInfo = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  bottom: 10px;
-  left: 15px;
-  position: absolute;
+const NewsText = styled.Text`
+  color: grey;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  margin-right: 10px;
+  margin-left: 10px;
+  direction: rtl;
 `;
 
-const Article: React.FC<ArticleProps> = (props) => {
-  const icon = require('../assets/icons/bhol.png');
+const ArticleInfo = styled.View`
+  flex-direction: row;
+  bottom: 10px;
+  left: 15px;
+`;
 
-  return (
-    <ArticleContainer>
-      <ArticleInfo>
-        <NewsSiteIcon source={icon} />
-        <NewsSiteName>{props.newsSite.displayName}</NewsSiteName>
-      </ArticleInfo>
-    </ArticleContainer>
-  );
+const Article = (props) => {
+	return (
+		<ArticleContainer>
+
+			<NewsText>{props.newsSite.textAll}</NewsText>
+			{(props.newsSite.picture !== undefined && props.newsSite.picture !== '' ) &&
+			<NewsSiteIcon2
+				source={{
+					uri: props.newsSite.picture
+				}}
+			/>}
+
+			<ArticleInfo>
+				<NewsSiteIcon source={props.newsSite.icon}/>
+				<NewsSiteName>{props.newsSite.displayName}</NewsSiteName>
+			</ArticleInfo>
+		</ArticleContainer>
+	);
 };
 
 export default Article;
